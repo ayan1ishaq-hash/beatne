@@ -20,8 +20,8 @@ messages:
     invalid-earth-tier: "<red>Invalid Earth Core tier. Use <white>normal</white>, <white>upgrade2</white>, or <white>upgrade3</white>."
     player-required: "<red>You must specify a player from console."
     player-not-found: "<red>That player is not online."
-    given-earth-core: "<green>Gave <white><player></white> an <white><tier></white> Earth Core."
-    received-earth-core: "<green>You received an <white><tier></white> Earth Core."
+    given-earth-core: "<green>Gave <white><player></white> an <white><tier></white> Earth Core <gray>(Model ID: <white><model></white>)</gray>."
+    received-earth-core: "<green>You received an <white><tier></white> Earth Core <gray>(Model ID: <white><model></white>)</gray>."
 
   abilities:
     cooldown: "<red><ability> is on cooldown for <white><time></white>."
