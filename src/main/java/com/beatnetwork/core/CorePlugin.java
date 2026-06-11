@@ -4,7 +4,7 @@ import com.beatnetwork.core.command.CoreCommand;
 import com.beatnetwork.core.cores.earth.EarthCoreManager;
 import com.beatnetwork.core.listener.PlayerJoinListener;
 import com.beatnetwork.core.util.MessageUtil;
-import org.bukkit.command.PluginCommand;
+import java.util.List;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class CorePlugin extends JavaPlugin {
@@ -27,7 +27,7 @@ public final class CorePlugin extends JavaPlugin {
 
         earthCoreManager.startPassiveTask();
 
-        getLogger().info("Core v" + getDescription().getVersion() + " has been enabled.");
+        getLogger().info("Core v" + getPluginMeta().getVersion() + " has been enabled.");
         debug("Debug mode is enabled.");
     }
 
@@ -42,16 +42,12 @@ public final class CorePlugin extends JavaPlugin {
     }
 
     private void registerCommands() {
-        CoreCommand coreCommandExecutor = new CoreCommand(this);
-        PluginCommand coreCommand = getCommand("core");
-
-        if (coreCommand == null) {
-            getLogger().warning("Command 'core' is missing from paper-plugin.yml.");
-            return;
-        }
-
-        coreCommand.setExecutor(coreCommandExecutor);
-        coreCommand.setTabCompleter(coreCommandExecutor);
+        registerCommand(
+                "core",
+                "Main BeatNetwork Core command.",
+                List.of("coreplugin"),
+                new CoreCommand(this)
+        );
     }
 
     private void registerListeners() {
