@@ -117,14 +117,18 @@ public final class CoreCommand implements CommandExecutor, TabCompleter {
                 "messages.commands.given-earth-core",
                 Map.of(
                         "player", target.getName(),
-                        "tier", tier.displayName()
+                        "tier", tier.displayName(),
+                        "model", String.valueOf(tier.modelId())
                 )
         ));
 
         if (!sender.equals(target)) {
             target.sendMessage(plugin.messages().configMessage(
                     "messages.commands.received-earth-core",
-                    Map.of("tier", tier.displayName())
+                    Map.of(
+                            "tier", tier.displayName(),
+                            "model", String.valueOf(tier.modelId())
+                    )
             ));
         }
     }
