@@ -2,21 +2,19 @@ package com.beatnetwork.core.command;
 
 import com.beatnetwork.core.CorePlugin;
 import com.beatnetwork.core.cores.earth.EarthTier;
+import io.papermc.paper.command.brigadier.BasicCommand;
+import io.papermc.paper.command.brigadier.CommandSourceStack;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import org.bukkit.Bukkit;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
-public final class CoreCommand implements CommandExecutor, TabCompleter {
+public final class CoreCommand implements BasicCommand {
 
     private static final List<String> SUBCOMMANDS = List.of("help", "reload", "version", "give");
     private static final List<String> CORE_TYPES = List.of("earth");
@@ -29,15 +27,12 @@ public final class CoreCommand implements CommandExecutor, TabCompleter {
     }
 
     @Override
-    public boolean onCommand(
-            @NotNull CommandSender sender,
-            @NotNull Command command,
-            @NotNull String label,
-            @NotNull String[] args
-    ) {
+    public void execute(CommandSourceStack source, String[] args) {
+        CommandSender sender = source.getSender();
+
         if (args.length == 0 || args[0].equalsIgnoreCase("help")) {
             sendHelp(sender);
-            return true;
+            return;
         }
 
         switch (args[0].toLowerCase(Locale.ROOT)) {
@@ -46,8 +41,6 @@ public final class CoreCommand implements CommandExecutor, TabCompleter {
             case "give" -> handleGive(sender, args);
             default -> sender.sendMessage(plugin.messages().configMessage("messages.unknown-command"));
         }
-
-        return true;
     }
 
     private void sendHelp(CommandSender sender) {
@@ -70,7 +63,7 @@ public final class CoreCommand implements CommandExecutor, TabCompleter {
     private void handleVersion(CommandSender sender) {
         sender.sendMessage(plugin.messages().configMessage(
                 "messages.version",
-                Map.of("version", plugin.getDescription().getVersion())
+                Map.of("version", plugin.getPluginMeta().getVersion())
         ));
     }
 
@@ -134,12 +127,7 @@ public final class CoreCommand implements CommandExecutor, TabCompleter {
     }
 
     @Override
-    public @Nullable List<String> onTabComplete(
-            @NotNull CommandSender sender,
-            @NotNull Command command,
-            @NotNull String alias,
-            @NotNull String[] args
-    ) {
+    public Collection<String> suggest(CommandSourceStack source, String[] args) {
         if (args.length == 1) {
             return filterStartsWith(SUBCOMMANDS, args[0]);
         }
