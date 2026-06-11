@@ -1,0 +1,19 @@
+name: Core
+version: ${version}
+main: com.beatnetwork.core.CorePlugin
+description: BeatNetwork core plugin with upgradeable elemental cores.
+authors:
+  - BeatNetwork
+api-version: '${apiVersion}'
+
+commands:
+  core:
+    description: Main Core command.
+    usage: /core [help|reload|version|give]
+    aliases:
+      - coreplugin
+
+permissions:
+  core.admin:
+    description: Allows access to Core admin commands and core item giving.
+    default: op

@@ -1,0 +1,97 @@
+settings:
+  # Prints extra debug messages to console when true.
+  debug: false
+
+messages:
+  prefix: "<dark_gray>[<green>BeatNetwork Core</green><dark_gray>]</dark_gray> "
+  no-permission: "<red>You do not have permission to do that."
+  unknown-command: "<red>Unknown subcommand. Use <white>/core help</white>."
+  reloaded: "<green>Configuration reloaded."
+  version: "<gray>Running <green>Core</green> version <white><version></white>."
+
+  help:
+    header: "<gray>----- <green>Core Help</green> <gray>-----"
+    reload: "<green>/core reload</green> <gray>- Reload the configuration."
+    version: "<green>/core version</green> <gray>- Show plugin version."
+    give: "<green>/core give earth <normal|upgrade2|upgrade3> [player]</green> <gray>- Give an Earth Core."
+
+  commands:
+    give-usage: "<red>Usage: <white>/core give earth <normal|upgrade2|upgrade3> [player]</white>"
+    invalid-earth-tier: "<red>Invalid Earth Core tier. Use <white>normal</white>, <white>upgrade2</white>, or <white>upgrade3</white>."
+    player-required: "<red>You must specify a player from console."
+    player-not-found: "<red>That player is not online."
+    given-earth-core: "<green>Gave <white><player></white> an <white><tier></white> Earth Core."
+    received-earth-core: "<green>You received an <white><tier></white> Earth Core."
+
+  abilities:
+    cooldown: "<red><ability> is on cooldown for <white><time></white>."
+    no-target: "<red>No target found."
+    no-enemies: "<red>No nearby enemies found."
+    earth:
+      ember-touch: "<green>Ember Touch scorched <white><target></white>."
+      water-shield: "<aqua>Water Shield activated for <white><duration>s</white>."
+      rock-slam: "<green>Rock Slam hit <white><count></white> enemies."
+      mud-trap: "<dark_green>Mud Trap rooted <white><count></white> enemies."
+      tidal-armor-use-stone-sword: "<yellow>Ancient Titan's active ability uses a <white>Stone Sword</white>."
+      tidal-armor: "<aqua>Tidal Armor activated for <white><duration>s</white>."
+      earthquake: "<gold>Earthquake hit <white><count></white> enemies."
+
+join-message:
+  # Set to true if you want players to receive this message when they join.
+  enabled: false
+  message: "<gray>Welcome to the server, <green><player></green>!"
+
+abilities:
+  earth:
+    # Passive effects refresh once per second and last this many seconds.
+    passive-refresh-seconds: 3
+
+    # Folder/package: cores/earth/normal
+    normal:
+      stone-skin:
+        # Resistance I while standing on dirt, grass, stone, and other earth blocks.
+        enabled: true
+      ember-touch:
+        cooldown-seconds: 10
+        range: 5.0
+        fire-seconds: 5
+      water-shield:
+        cooldown-seconds: 20
+        duration-seconds: 8
+
+    # Folder/package: cores/earth/upgrade2
+    upgrade2:
+      stone-skin:
+        # Resistance II while standing on earth blocks.
+        enabled: true
+      lava-coat:
+        fire-seconds: 3
+      rock-slam:
+        cooldown-seconds: 15
+        radius: 5.0
+        slowness-seconds: 4
+        upward-velocity: 1.1
+        outward-velocity: 0.35
+      mud-trap:
+        cooldown-seconds: 25
+        duration-seconds: 5
+        radius: 6.0
+
+    # Folder/package: cores/earth/upgrade3
+    upgrade3:
+      stone-skin:
+        # Resistance II while standing on earth blocks.
+        enabled: true
+      lava-coat:
+        fire-seconds: 3
+      inferno-ground:
+        # Places temporary fire in north/east/south/west directions when you take damage.
+        place-fire: true
+        fire-seconds: 5
+      tidal-armor:
+        cooldown-seconds: 20
+        duration-seconds: 10
+      earthquake:
+        cooldown-seconds: 30
+        duration-seconds: 4
+        radius: 8.0
