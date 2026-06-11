@@ -19,6 +19,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.components.CustomModelDataComponent;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.scheduler.BukkitTask;
@@ -126,6 +127,7 @@ public final class EarthCoreManager implements Listener {
 
         meta.displayName(displayNameFor(tier));
         meta.lore(loreFor(tier));
+        applyModelId(meta, tier.modelId());
 
         PersistentDataContainer data = meta.getPersistentDataContainer();
         data.set(coreTypeKey, PersistentDataType.STRING, "earth");
@@ -133,6 +135,12 @@ public final class EarthCoreManager implements Listener {
 
         item.setItemMeta(meta);
         return item;
+    }
+
+    private void applyModelId(ItemMeta meta, int modelId) {
+        CustomModelDataComponent customModelData = meta.getCustomModelDataComponent();
+        customModelData.setFloats(List.of((float) modelId));
+        meta.setCustomModelDataComponent(customModelData);
     }
 
     public Optional<EarthTier> getOffhandTier(Player player) {
@@ -179,6 +187,7 @@ public final class EarthCoreManager implements Listener {
                     plugin.messages().deserialize("<green>Passive:</green> Stone Skin"),
                     plugin.messages().deserialize("<yellow>Right Click:</yellow> Ember Touch"),
                     plugin.messages().deserialize("<gold>Sneak + Right Click:</gold> Water Shield"),
+                    plugin.messages().deserialize("<dark_gray>Model ID: " + tier.modelId() + "</dark_gray>"),
                     plugin.messages().deserialize("<dark_gray>Hold in off hand for passives.</dark_gray>")
             );
             case UPGRADE_2 -> List.of(
@@ -186,6 +195,7 @@ public final class EarthCoreManager implements Listener {
                     plugin.messages().deserialize("<green>Passive:</green> Stone Skin II, Lava Coat"),
                     plugin.messages().deserialize("<yellow>Right Click:</yellow> Rock Slam"),
                     plugin.messages().deserialize("<gold>Sneak + Right Click:</gold> Mud Trap"),
+                    plugin.messages().deserialize("<dark_gray>Model ID: " + tier.modelId() + "</dark_gray>"),
                     plugin.messages().deserialize("<dark_gray>Hold in off hand for passives.</dark_gray>")
             );
             case UPGRADE_3 -> List.of(
@@ -194,6 +204,7 @@ public final class EarthCoreManager implements Listener {
                     plugin.messages().deserialize("<green>Passive:</green> Inferno Ground, Tidal Armor"),
                     plugin.messages().deserialize("<yellow>Right Click Stone Sword:</yellow> Tidal Armor"),
                     plugin.messages().deserialize("<gold>Sneak + Right Click Paper:</gold> Earthquake"),
+                    plugin.messages().deserialize("<dark_gray>Model ID: " + tier.modelId() + "</dark_gray>"),
                     plugin.messages().deserialize("<dark_gray>Hold in off hand for passives.</dark_gray>")
             );
         };
